@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<header>
+    <title>Sem Delisse</title>
+
+    <!-- Heading thingies -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="style/index.css?ver=2">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&family=Noto+Sans+Mono:wght@100..900&family=Poppins&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&family=Noto+Sans+Mono:wght@100..900&family=Poppins&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/2ef25d02cd.js" crossorigin="anonymous"></script>
+    <script defer src="app.js"></script>
+
+</header>
+
+<body>
+    <nav id="navbar">
+        <a class="link item active" href="/">
+            <i class="fa-solid fa-user nav-icon"></i>
+            <span>About</span>
+        </a>
+        <a class="link item" href="/projects.html">
+            <i class="fa-solid fa-folder-open nav-icon"></i>
+            <span>Projects</span>
+        </a>
+        <a class="link item" href="/contact.html">
+            <i class="fas fa-envelope-open nav-icon"></i>
+            <span>Contact</span>
+        </a>
+    </nav>
+    <div id="wrapper">
+        <div class="page-content">
+            <div class="section-wrapper">
+                <section class="intro">
+                    <h2 class="scramble"><i class="fa-solid fa-address-card"></i> Sem's Portfolio</h2>
+                    <p class="scramble">Hey there! Welcome to my personal portfolio! I'm Sem, a Software Developer,
+                        specialized in making games. </p>
+                    <p class="scramble">I love to create all sorts of games and other small projects If you want to
+                        know what kind of work I've done, or what I'm working on at the moment?
+                        Head over to the <a class="link" href="/projects.html">projects</a> page!</p>
+                    <p class="scramble">Feel free to contact me if you have any questions
+                        <a class="link" href="/contact.html">here</a>.
+                    </p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const elements = document.querySelectorAll('.scramble');
+            elements.forEach(element => scrambleText(element, 800)); // Total duration of 1.5 seconds
+
+            function scrambleText(element, duration) {
+                const originalHtml = element.innerHTML; // Store original HTML to restore later
+                const textNodes = getTextNodes(element);
+
+                let iteration = 0;
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-=+';
+
+                function update() {
+                    let scrambledHtml = originalHtml;
+
+                    // Scramble text nodes
+                    textNodes.forEach(node => {
+                        const originalText = node.textContent;
+                        const scrambledText = originalText.split('').map((char, i) => {
+                            if (char === ' ') return char; // Preserve spaces
+                            if (iteration >= (duration / 60) / originalText.length * i) return char; // Reveal original characters progressively
+                            return chars[Math.floor(Math.random() * chars.length)];
+                        }).join('');
+
+                        scrambledHtml = scrambledHtml.replace(originalText, scrambledText); // Update only the text part
+                    });
+
+                    element.innerHTML = scrambledHtml; // Apply scrambled text
+
+                    iteration++;
+
+                    if (iteration < (duration / 60)) {
+                        setTimeout(update, 60); // Update every 60ms for smoother animation
+                    } else {
+                        element.innerHTML = originalHtml; // Restore original HTML
+                    }
+                }
+
+                update();
+            }
+
+            // Helper function to get all text nodes within an element
+            function getTextNodes(element) {
+                const textNodes = [];
+                function walk(node) {
+                    if (node.nodeType === Node.TEXT_NODE) {
+                        textNodes.push(node);
+                    } else if (node.nodeType === Node.ELEMENT_NODE) {
+                        node.childNodes.forEach(walk);
+                    }
+                }
+                walk(element);
+                return textNodes;
+            }
+        });
+    </script>
+
+    <footer>
+        <p>
+            &#169; Sem Delisse
+            <script>document.addEventListener('DOMContentLoaded', function () { document.getElementById("year").innerHTML = new Date().getFullYear(); });</script>
+            <span id="year"></span>
+        </p>
+    </footer>
+
+</body>
+
+</html>
