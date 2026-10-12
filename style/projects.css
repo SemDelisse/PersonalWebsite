@@ -512,3 +512,10 @@ footer .link {
     display: block;
     border-radius: 12px;
 }
+
+.project-divider {
+    border: 0;
+    border-top: 5px solid #555;
+    margin: 30px 0;
+    width: 100%;
+}
