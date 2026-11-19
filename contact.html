@@ -28,6 +28,7 @@
     <script src="https://kit.fontawesome.com/2ef25d02cd.js" crossorigin="anonymous"></script>
     <script defer src="app.js"></script>
 
+
 </header>
 
 <body>
@@ -53,7 +54,8 @@
                     <p>You can contact me through E-Mail or LinkedIn. You can find more info about projects that I do at
                         the <a class="link" href="/projects.html">projects</a> page</p>
                     <div class="btn-row">
-                        <a class="btn link" href="mailto: semdelisse@gmail.com" target="_blank" rel="Mail">
+                        <a class="btn link copy-mail" href="mailto:semdelisse@gmail.com" rel="Mail"
+                            data-email="semdelisse@gmail.com" data-tooltip="semdelisse@gmail.com">
                             <i class="fa-solid fa-envelope"> Mail</i>
                         </a>
                         <a class="btn link" href="https://www.linkedin.com/in/sem-delisse-95aa0b2bb" target="_blank"
@@ -120,6 +122,40 @@
                 walk(element);
                 return textNodes;
             }
+        });
+    </script>
+
+    <script>
+        // Click the Mail button to copy the email address
+        document.addEventListener("DOMContentLoaded", function () {
+            const btn = document.querySelector('.copy-mail');
+            if (!btn) return;
+            const email = btn.dataset.email;
+            const original = btn.dataset.tooltip;
+            let timer;
+
+            function fallbackCopy(text) {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy'); } catch (e) { }
+                document.body.removeChild(ta);
+            }
+
+            btn.addEventListener('click', function (e) {
+                e.preventDefault(); // copy instead of opening the mail app
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(email).catch(() => fallbackCopy(email));
+                } else {
+                    fallbackCopy(email);
+                }
+                btn.dataset.tooltip = 'Copied!';
+                clearTimeout(timer);
+                timer = setTimeout(() => { btn.dataset.tooltip = original; }, 1500);
+            });
         });
     </script>
 
