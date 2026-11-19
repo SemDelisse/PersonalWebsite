@@ -453,10 +453,6 @@ footer .link {
     transform: scale(1.1);
 }
 
-.btn.link i.fa-github {
-    font-size: 2rem;
-}
-
 .gallery-item {
     object-fit: cover;
     height: 200px;
@@ -495,10 +491,6 @@ footer .link {
     z-index: 1001;
 }
 
-.btn-row .fa-youtube {
-    font-size: 32px;
-}
-
 .video-wrapper {
     width: 100%;
     max-width: 100%;
@@ -534,4 +526,35 @@ footer .link {
 
 .skill-group h3 {
     margin-top: 0;
+}
+
+.close {
+    background: none;
+    border: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.gallery-item:focus-visible,
+.close:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+}
+
+.btn-row .btn i {
+    font-size: var(--icon-size, 2rem);
+    width: 1.25em;
+    text-align: center;
+}
+
+.btn-row .btn i.fa-download {
+    --icon-size: 2.2rem;
+}
+
+.btn-row .btn i.fa-globe {
+    --icon-size: 2rem;
+}
+
+.btn-row .btn i.fa-youtube {
+    --icon-size: 2.1rem;
 }

@@ -5,17 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sem Delisse</title>
+    <meta name="description" content="Portfolio of Sem Delisse, a software developer specialized in making games.">
 
     <!-- Icons & manifest -->
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
 
     <!-- Style -->
     <link rel="stylesheet" href="style/index.css?ver=2">
 
+    <!-- Fonts (one combined request) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -24,37 +26,38 @@
 
     <script src="https://kit.fontawesome.com/2ef25d02cd.js" crossorigin="anonymous"></script>
     <script defer src="app.js"></script>
+    <script defer src="script/scramble.js"></script>
 </head>
 
 <body>
 
-    <nav id="navbar">
-        <a class="link item active" href="index.html">
-            <i class="fa-solid fa-user nav-icon"></i>
+    <nav id="navbar" aria-label="Main">
+        <a class="link item active" href="index.html" aria-current="page">
+            <i class="fa-solid fa-user nav-icon" aria-hidden="true"></i>
             <span>About</span>
         </a>
 
         <a class="link item" href="projects.html">
-            <i class="fa-solid fa-folder-open nav-icon"></i>
+            <i class="fa-solid fa-folder-open nav-icon" aria-hidden="true"></i>
             <span>Projects</span>
         </a>
 
         <a class="link item" href="contact.html">
-            <i class="fas fa-envelope-open nav-icon"></i>
+            <i class="fas fa-envelope-open nav-icon" aria-hidden="true"></i>
             <span>Contact</span>
         </a>
     </nav>
 
     <div id="wrapper">
 
-        <div class="page-content">
+        <main class="page-content">
 
             <!-- About Section -->
             <div class="section-wrapper">
                 <section class="intro">
 
                     <h2 class="scramble">
-                        <i class="fa-solid fa-address-card"></i> Sem's Portfolio
+                        <i class="fa-solid fa-address-card" aria-hidden="true"></i> Sem's Portfolio
                     </h2>
 
                     <p class="scramble">
@@ -82,7 +85,7 @@
                 <section class="skills">
 
                     <h2 class="scramble">
-                        <i class="fa-solid fa-code"></i> Skills
+                        <i class="fa-solid fa-code" aria-hidden="true"></i> Skills
                     </h2>
 
                     <div class="skills-grid">
@@ -146,60 +149,11 @@
                 </section>
             </div>
 
-        </div>
+        </main>
     </div>
 
-
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-=+';
-            const STEP_MS = 60;
-
-            document.querySelectorAll('.scramble').forEach(el => scrambleText(el, 800));
-
-            function scrambleText(element, duration) {
-                const nodes = getTextNodes(element);
-                const originals = nodes.map(n => n.textContent);
-                const steps = duration / STEP_MS;
-                let iteration = 0;
-
-                function update() {
-                    nodes.forEach((node, idx) => {
-                        const original = originals[idx];
-                        node.textContent = [...original].map((char, i) => {
-                            if (/\s/.test(char)) return char;
-                            if (iteration >= (steps / original.length) * i) return char;
-                            return CHARS[Math.floor(Math.random() * CHARS.length)];
-                        }).join('');
-                    });
-
-                    iteration++;
-                    if (iteration < steps) {
-                        setTimeout(update, STEP_MS);
-                    } else {
-                        nodes.forEach((node, idx) => node.textContent = originals[idx]);
-                    }
-                }
-
-                update();
-            }
-
-            // Only real text, no whitespace between tags
-            function getTextNodes(element) {
-                const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
-                const nodes = [];
-                while (walker.nextNode()) {
-                    if (walker.currentNode.textContent.trim() !== '') nodes.push(walker.currentNode);
-                }
-                return nodes;
-            }
-        });
-    </script>
-
-
     <footer>
-        <p>&copy; Sem Delisse 2006 - <span id="year"></span></p>
-        <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+        <p>&copy; Sem Delisse <span id="year"></span></p>
     </footer>
 
 </body>
